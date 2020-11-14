@@ -70,7 +70,7 @@ class DoublyLinkedList{
     void insertBack(T data){
       ListNode<T> *node = new ListNode<T>(data);
       if(front == NULL){
-        front = back;
+        front = node;
       }else{
         back->next = node;
         node->prev = back;
@@ -120,9 +120,10 @@ class DoublyLinkedList{
 
     //print the list
     void printList(){
+      cout << "------>" << endl;
       ListNode<T> *curr = front;
       while(curr!= NULL){
-        cout << curr->data;
+        cout << curr->data << " ";
         curr = curr->next;
       }
       cout << endl;
@@ -143,6 +144,18 @@ class DoublyLinkedList{
         pos = -1;
       }
       return pos;
+    }
+
+    T returnPos(int pos){
+      int p = 0;
+      ListNode<T>* curr = front;
+      ListNode<T>* prev = front;
+      while(p != pos){
+        prev = curr;
+        curr = curr->next;
+        p++;
+      }
+      return curr->data;
     }
 
     //delete node at a certain position in the list

@@ -14,19 +14,27 @@ class Queue{
     }
 
     ~Queue(){
-      delete queueList();
+      delete queueList;
     };
 
     void enQueue(T data){
       queueList->insertFront(data);
     }
 
-    void deQueue(){
+    T deQueue(){
       queueList->removeBack();
     }
 
     void printQueue(){
       queueList->printList();
+    }
+
+    T returnPosition(int pos){
+      queueList->returnPos((queueList->getSize()-pos)-1);
+    }
+
+    unsigned int getSize(){
+      queueList->getSize();
     }
 };
 #endif
