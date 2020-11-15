@@ -30,7 +30,7 @@ int main(int argc, char **argv){
   // testQueue->printQueue();
   // cout << "-------" << endl;
 
-  Simulation *s = new Simulation("test.txt");
+  Simulation *s = new Simulation("test3.txt");
   s->processFile();
   s->mainSim();
   delete s;

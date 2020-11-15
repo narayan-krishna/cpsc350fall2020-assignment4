@@ -118,6 +118,7 @@ class Simulation{
           int kWaitTime = k.getWaitTime(clockTick);
           if(kWaitTime != 0){
             stati->addWaitTime(kWaitTime);
+            // cout << "here" << endl;
           }
 
           wind->addStudent(k, clockTick);
@@ -144,5 +145,6 @@ class Simulation{
       stati->updateStudentStats();
       stati->printStats();
       stati->printWaitTimes();
+      // stati->findMedian();
     }
 };

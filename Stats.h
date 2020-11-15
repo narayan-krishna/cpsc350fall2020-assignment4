@@ -1,4 +1,6 @@
 #include <iostream>
+#include <array>
+#include <algorithm>
 using namespace std;
 
 class Stats{
@@ -8,7 +10,7 @@ class Stats{
     int added;
 
     float meanWait;
-    int medianWait;
+    float medianWait;
     int longestWait;
     int studentsOver10;
 
@@ -71,6 +73,38 @@ class Stats{
       cout << "]" << endl;
     }
 
+    void findMedian(){
+
+      int *sorted = new int[maxSize]{};
+      for(int i = 0; i < maxSize; ++i){
+        sorted[i] = waitTimes[i];
+      }
+      for(int i = 0; i <= maxSize-1; ++i){
+        for(int j=i+1; j < maxSize; ++j){
+          if(sorted[i] > sorted[j])
+          {
+            int t = sorted[i];
+            sorted[i] = sorted[j];
+            sorted[j] = t;
+          }
+        }
+      }
+      // cout << "[";
+      // for(int i = 0; i < maxSize; ++i){
+      //   cout << sorted[i];
+      // }
+      // cout << "]" << endl;
+
+      if(maxSize % 2 == 0){
+        // cout << "hmm" << endl;
+        medianWait = (sorted[maxSize/2] + sorted[maxSize/2 - 1])/2;
+      }else{
+        // cout << "here" << endl;
+        medianWait = sorted[maxSize/2];
+      }
+      delete sorted;
+    }
+
     void updateStudentStats(){
       float sum = 0;
       int longest = 0;
@@ -85,8 +119,8 @@ class Stats{
       meanWait = sum/maxSize;
       longestWait = longest;
       studentsOver10 = over10;
+      findMedian();
     }
-
 
     void printStats(){
       cout << "------------------------------------" << endl;
