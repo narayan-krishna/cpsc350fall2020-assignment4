@@ -123,8 +123,6 @@ class Simulation{
 
           wind->addStudent(k, clockTick);
         }
-        //update window idle times
-        // wind->incrementIdle();
         wind->updateWindowTimes();
         // wind->printWind();
         if(queue->getSize() != 0 || !wind->windowsAllEmpty() || currCommand < commandsLength){
@@ -144,7 +142,7 @@ class Simulation{
       stati->updateWindowStats(wind->meanIdle(), wind->longestIdleWindow(), wind->windowsOver5());
       stati->updateStudentStats();
       stati->printStats();
-      stati->printWaitTimes();
+      // stati->printWaitTimes();
       // stati->findMedian();
     }
 };
