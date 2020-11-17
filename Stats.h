@@ -3,6 +3,10 @@
 #include <algorithm>
 using namespace std;
 
+//stat collector for simulation. records a variety of stats
+//calculates stats for students by collecting wait times every time
+//a student leaves queue. window calculations are done in the window
+//class, and then passed through.
 class Stats{
   private:
     int *waitTimes;
@@ -35,12 +39,14 @@ class Stats{
       delete waitTimes;
     }
 
+    //pass through stats calculated in the window class
     void updateWindowStats(float meanIdleWindowTime, int longestIdleWindowTime, int windowsOver5time){
       meanIdleWindow = meanIdleWindowTime;
       longestIdleWindow = longestIdleWindowTime;
       windowsOver5 = windowsOver5time;
     }
 
+    //add a wait time to the array. resize if neccessary.
     void addWaitTime(int waitTime){
       // cout << "added " << added << endl;
       // cout << "max size " << maxSize << endl;
@@ -51,6 +57,7 @@ class Stats{
       added ++;
     }
 
+    //resize the array by assigning array to a new array of same size + 1
     void resize(){
       int *temp = new int[maxSize];
       for(int i = 0; i < maxSize; ++i){
@@ -65,6 +72,7 @@ class Stats{
       maxSize = maxSize+1;
     }
 
+    //print wait times array (for testing purposes)
     void printWaitTimes(){
       cout << "[";
       for(int i = 0; i < maxSize; ++i){
@@ -73,6 +81,10 @@ class Stats{
       cout << "]" << endl;
     }
 
+    //find the median. first, create a copy of the array.
+    //then, copy it using selection sort. finally, calculate the median
+    //if the number of wait times is even, take the average of the middle two
+    //otherwise just take the middle index.
     void findMedian(){
 
       int *sorted = new int[maxSize]{};
@@ -105,6 +117,8 @@ class Stats{
       delete sorted;
     }
 
+    //update student stats. calcultes mean wait, calculates longest wait,
+    //and finds number of student wait times over 10 minutes
     void updateStudentStats(){
       float sum = 0;
       int longest = 0;
@@ -122,6 +136,7 @@ class Stats{
       findMedian();
     }
 
+    //print the stats stored as private variables
     void printStats(){
       cout << "------------------------------------" << endl;
       cout << "STATISTICS REPORT: " << endl;

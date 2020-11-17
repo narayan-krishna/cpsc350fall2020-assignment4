@@ -1,5 +1,7 @@
 #include "Student.h"
 
+//window class, has an array of windows, an array of idle times and
+//booleans to match window status
 class Windows{
   private:
     Student *windowArray;
@@ -8,6 +10,7 @@ class Windows{
     int arrSize;
 
   public:
+    //window constructor, takes number of windows as input
     Windows(int count){
       arrSize = count;
       windowArray = new Student[count];
@@ -15,12 +18,14 @@ class Windows{
       idleTimes = new int[count]{};
     }
 
+    //destructor
     ~Windows(){
       delete windowArray;
       delete spaceArray;
       delete idleTimes;
     }
 
+    //checks if a given window empty
     bool windowIsEmpty(int i){
       if(spaceArray[i] == true){
         return false;
@@ -29,6 +34,7 @@ class Windows{
       }
     }
 
+    //checks if all windows are full (if so dont add student)
     bool windowsAllFull(){
       int fullCount = 0;
       // cout << "arr " << arrSize << endl;
@@ -45,6 +51,7 @@ class Windows{
       }
     }
 
+    //checks if all windows are empty
     bool windowsAllEmpty(){
       int emptyCount = 0;
       for(int i = 0; i < arrSize; ++i){
@@ -59,6 +66,7 @@ class Windows{
       }
     }
 
+    //add a student to windows
     void addStudent(Student s, int time){
       for(int i = 0; i < arrSize; ++i){
         if(spaceArray[i] == false){
@@ -70,6 +78,7 @@ class Windows{
       }
     }
 
+    //remove student from windows
     void removeStudents(int time){
       for(int i = 0; i < arrSize; ++i){
         if(spaceArray[i] == true){
@@ -81,6 +90,7 @@ class Windows{
       }
     }
 
+    //print windows (full or not, and for how long they might be idle)
     void printWind(){
       for(int i = 0; i < arrSize; ++i){
         cout << "[" << spaceArray[i] << "] ";
@@ -92,6 +102,7 @@ class Windows{
       cout << endl;
     }
 
+    //increments idle time of window
     void incrementIdle(){
       for(int i = 0; i < arrSize; ++i){
         if(spaceArray[i] == false){
@@ -100,6 +111,7 @@ class Windows{
       }
     }
 
+    //increments the window time of a student
     void updateWindowTimes(){
       for(int i = 0; i < arrSize; ++i){
         if(spaceArray[i] == true){
@@ -108,6 +120,7 @@ class Windows{
       }
     }
 
+    //average window time
     float meanIdle(){
       float sum = 0;
       for(int i = 0; i < arrSize; ++i){
@@ -117,6 +130,7 @@ class Windows{
       return mean;
     }
 
+    //finds the window idle for longest
     int longestIdleWindow(){
       int longest = 0;
       for(int i = 0; i < arrSize; ++i){
@@ -127,10 +141,11 @@ class Windows{
       return longest;
     }
 
+    //finds number of windows over 5 minutes
     int windowsOver5(){
       int over5 = 0;
       for(int i = 0; i < arrSize; ++i){
-        if(idleTimes[i] >= 5){
+        if(idleTimes[i] > 5){
           over5 ++;
         }
       }

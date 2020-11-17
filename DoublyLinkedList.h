@@ -4,6 +4,8 @@
 #include <iostream>
 using namespace std;
 
+//ListNode class. most of this was written in class
+//with professor german
 template <class T>
 class ListNode{
   public:
@@ -11,14 +13,17 @@ class ListNode{
     ListNode *next;
     ListNode *prev;
 
+    //construct list node
     ListNode(){}
 
+    //construct node with given data, set pointers to null
     ListNode(T inData){
       data = inData;
       next = NULL;
       prev = NULL;
     }
 
+    //delete node
     ~ListNode(){
       if(prev != NULL){
         prev = NULL;
@@ -29,6 +34,8 @@ class ListNode{
     }
 };
 
+//ListNode class. most of this was written in class
+//with professor german
 template <class T>
 class DoublyLinkedList{
   private:
@@ -36,23 +43,29 @@ class DoublyLinkedList{
     ListNode<T>* back;
     unsigned int size;
 
+
   public:
+    //construct list
     DoublyLinkedList(){
       front = NULL;
       back = NULL;
       size = 0;
     }
 
+    //destruct list
     ~DoublyLinkedList(){}
 
+    //if list is empty, return true
     bool isEmpty(){
       return(size == 0);
     }
 
+    //return size of list
     unsigned int getSize(){
       return size;
     }
 
+    //put something at front of list
     void insertFront(T data){
       ListNode<T>* node = new ListNode<T>(data);
       if(size == 0){
@@ -183,6 +196,7 @@ class DoublyLinkedList{
       }
     }
 
+    //return a node from the list
     T removeNode(T key){
       ListNode<T>* curr = front;
       while(curr->data != key){
